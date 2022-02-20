@@ -1,0 +1,23 @@
+Hello, world!
+
+Request method is "GET"
+RequestURI is "/"
+Requested path is "/"
+Host is "localhost:5000"
+Query string is ""
+User-Agent is "Python-urllib/3.9"
+Connection has been established at 2022-02-20 10:54:22.450761388 -0500 EST m=+942.163789994
+Request has been started at 2022-02-20 10:54:22.450765095 -0500 EST m=+942.163793700
+Serial request number for the current connection is 1
+Your ip is "127.0.0.1"
+
+Raw request is:
+---CUT---
+GET / HTTP/1.1
+User-Agent: Python-urllib/3.9
+Host: localhost:5000
+Accept-Encoding: identity
+Connection: close
+
+
+---CUT---
