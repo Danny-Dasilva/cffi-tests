@@ -24,17 +24,17 @@ typedef struct {
 
 
 
-char* getVertex(GoString data);
+char* getRequest(GoString data);
 void freeString(char* cs);
 """)
 
-lib = ffi.dlopen("./run.so")
+lib = ffi.dlopen("./golang.so")
 
 
 def create_payload_from_dict(data):
-    
-    data = ffi.new("char[]", json.dumps(test_dict).encode("utf-8"))
-    msg = ffi.new("GoString*", {'data':data, 'len':len(json.dumps(test_dict))})
+    json_data  = json.dumps(data).encode("utf-8")
+    data = ffi.new("char[]", json_data)
+    msg = ffi.new("GoString*", {'data':data, 'len':len(json_data)})
     return msg[0]
 def get_dict_from_payload(data):
     output = ffi.string(data).decode()
@@ -42,18 +42,14 @@ def get_dict_from_payload(data):
     return json.loads(output)
 
 test_dict = {
-		"Name": "Standard",
-		"Fruit": [
-			"Apple",
-			"Banana",
-			"Orange"
-		],
-		"ref": 999
+		"url": "https://google.com",
+		"ja3": "771,4865-4866-4867-49195-49199-49196-49200-52393-52392-49171-49172-156-157-47-53,0-23-65281-10-11-35-16-5-13-18-51-45-43-27-21,29-23-24,0",
+		"userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.106 Safari/537.36"
 	}
 
 payload = create_payload_from_dict(test_dict)
-call = lib.getVertex(payload)
+call = lib.getRequest(payload)
 
 
 data = get_dict_from_payload(call)
-breakpoint()
+print(data)

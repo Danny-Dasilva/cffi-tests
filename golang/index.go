@@ -1,5 +1,7 @@
 package main
-
+/*
+#include <stdlib.h>
+*/
 import "C"
 
 import (
@@ -11,6 +13,7 @@ import (
 	"net/url"
 	"os"
 	"strings"
+	"unsafe"
 )
 
 // Options sets CycleTLS client options
@@ -264,10 +267,9 @@ func getRequest(data string) *C.char {
 	opt := cycleTLSRequest{"cycleTLSRequest", options}
 
 	res := processRequest(opt)
-	response, err = dispatcher(res)
+	response, err := dispatcher(res)
 	if err != nil {
 		log.Print("Request Failed: " + err.Error())
-		return response, err
 	}
 	//marshal 
 	jsonData, err = json.Marshal(response)
