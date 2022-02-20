@@ -227,7 +227,7 @@ func (client CycleTLS) Queue(URL string, options Options, Method string) {
 	client.ReqChan <- response
 }
 
-//export Do
+
 func Do(URL string, options Options, Method string) (response Response, err error) {
 
 	options.URL = URL
@@ -244,6 +244,40 @@ func Do(URL string, options Options, Method string) (response Response, err erro
 	return response, nil
 }
 
+//export freeString
+func freeString(cs *C.char) {
+	C.free(unsafe.Pointer(cs))
+}
+
+//export getRequest
+func getRequest(data string) *C.char {
+	//unmarshal
+
+	jsonData := []byte(data)
+	var options Options
+	err := json.Unmarshal(jsonData, &options)
+	if err != nil {
+		log.Println(err)
+	}
+	//create
+
+	opt := cycleTLSRequest{"cycleTLSRequest", options}
+
+	res := processRequest(opt)
+	response, err = dispatcher(res)
+	if err != nil {
+		log.Print("Request Failed: " + err.Error())
+		return response, err
+	}
+	//marshal 
+	jsonData, err = json.Marshal(response)
+	if err != nil {
+		log.Println(err)
+	}
+	return C.CString(string(jsonData))
+
+	//return 
+}
 //TODO rename this
 
 //

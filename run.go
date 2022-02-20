@@ -53,7 +53,7 @@ func Log(msg string) {
 type Options struct {
 	URL             string            `json:"url"`
 	Method          string            `json:"method"`
-	Headers         []C.Nested 
+	Headers         map[string]string `json:"headers"`
 	Body            string            `json:"body"`
 	Ja3             string            `json:"ja3"`
 	UserAgent       string            `json:"userAgent"`
@@ -89,30 +89,27 @@ func freeString(cs *C.char) {
 //export getVertex
 func getVertex(data string) *C.char {
 	jsonData := []byte(data)
-	var basket FruitBasket
+	var basket Options
 	err := json.Unmarshal(jsonData, &basket)
 	if err != nil {
 		log.Println(err)
-	}
-	fmt.Println(basket.Name, basket.Fruit, basket.Id)
+	fmt.Println(basket.URL, basket.Ja3, basket.UserAgent)
 	// return basket.Name
 	jsonData, err = json.Marshal(basket)
 	if err != nil {
 		log.Println(err)
 	}
 	return C.CString(string(jsonData))
+}	
 }
+
 
 func main() {
 	name := getVertex(`
 	{
-		"Name": "Standard",
-		"Fruit": [
-			"Apple",
-			"Banana",
-			"Orange"
-		],
-		"ref": 999
+		"url": "https://google.com",
+		"ja3": "771,4865-4866-4867-49195-49199-49196-49200-52393-52392-49171-49172-156-157-47-53,0-23-65281-10-11-35-16-5-13-18-51-45-43-27-21,29-23-24,0",
+		"userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.106 Safari/537.36"
 	}`)
 	fmt.Println(name)
 }
