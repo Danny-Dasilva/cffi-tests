@@ -16,8 +16,16 @@ static void myyprint(char* s) {
 }
 */
 import "C"
-import "unsafe"
+// import "unsafe"
 import "fmt"
+
+type Response struct {
+	RequestID string
+	Status    int
+	Body      string
+	Headers   map[string]string
+}
+
 
 //export getVertex
 func getVertex(X C.int, Y *C.char) C.struct_Vertex {
@@ -34,5 +42,5 @@ func main() {
     fmt.Println(getVertex(1, cs))
 	// cs := C.CString("Hello from stdio")
 	// C.myyprint(cs)
-	C.free(unsafe.Pointer(cs))
+	// C.free(unsafe.Pointer(cs))
 }
