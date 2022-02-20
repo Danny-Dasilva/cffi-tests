@@ -1,0 +1,2 @@
+test unmarshal and marshal json in main package (see reduced time)
+implement channels in C or callback

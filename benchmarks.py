@@ -46,15 +46,15 @@ def run_all_benchmarks(url='', repetitions=10_000, output_file="results.csv", **
     tests = []
     timer_type = kwargs.get('timer')
 
-    # tests.append(('pywget', "import pywget", "pywget.download('$url', bar=None)"))
-    # tests.append(('requests', 'import requests', "requests.get('$url', verify=False)"))
-    # tests.append(('requests_session', requests_setups, "session.send(r, verify=False)"))
-    # tests.append(('urllib',  "from urllib.request import urlopen", "urlopen('$url').read()"))
-    # tests.append(('urllib3', "import urllib3; http_pool = urllib3.PoolManager()", "http_pool.urlopen('GET', '$url').read()"))
-    # tests.append(('pycurl', pycurl_setups, "mycurl.perform()"))
-    # tests.append(('pycurl_nossl', pycurl_setups_nossl, "mycurl.perform()"))
-    tests.append(('faster_than_requests', "import faster_than_requests", "faster_than_requests.get('http://localhost:5000/')"))
-    # tests.append(('cycletls', "from cycletls import get", "get({'url': '$url'})"))
+    tests.append(('pywget', "import pywget", "pywget.download('$url', bar=None)"))
+    tests.append(('requests', 'import requests', "requests.get('$url', verify=False)"))
+    tests.append(('requests_session', requests_setups, "session.send(r, verify=False)"))
+    tests.append(('urllib',  "from urllib.request import urlopen", "urlopen('$url').read()"))
+    tests.append(('urllib3', "import urllib3; http_pool = urllib3.PoolManager()", "http_pool.urlopen('GET', '$url').read()"))
+    tests.append(('pycurl', pycurl_setups, "mycurl.perform()"))
+    tests.append(('pycurl_nossl', pycurl_setups_nossl, "mycurl.perform()"))
+    # tests.append(('faster_than_requests', "import faster_than_requests", "faster_than_requests.get('http://localhost:5000/')"))
+    tests.append(('cycletls', "from cycletls import get", "get({'url': '$url'})"))
 
 
     for test in tests:

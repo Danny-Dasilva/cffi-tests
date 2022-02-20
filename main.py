@@ -10,7 +10,7 @@ test_dict = {
 	}
 
 resp = get(test_dict)
-for i in range(10000):
+for i in range(1000):
     resp = get(test_dict)
 
 print(resp)
